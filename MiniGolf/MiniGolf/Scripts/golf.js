@@ -218,6 +218,7 @@ function drawMap() {
                 ctx.arc(borders[i].x, borders[i].y, borders[i].rad, 0, 2 * Math.PI);
                 ctx.fill();
                 ctx.stroke();
+                break;
             case "hole":
                 xHole = borders[i].x;
                 yHole = borders[i].y;
@@ -339,6 +340,8 @@ function collision() {
                     }
                 }
                 break;
+            case ("circle"):
+
         };
     }
     slowDown()*10/time;
