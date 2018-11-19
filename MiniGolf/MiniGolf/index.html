@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h2>Mini Golf!</h2>
+    <p>Get the ball into the hole!</p> 
+    <div>
+        <div>
+            <input type="button" id="simMap" value="Simple Map" name="simMap" />
+            <input type="button" id="medMap" value="Medium Map" name="simMap" />
+            <input type="button" id="impMap" value="Impossible Map" name="impMap" />
+        </div>
+        <div id="dragShot" draggable="true">
+            <canvas id="golfMap" width="500" height="500" draggable="false"></canvas>
+        </div>
+        <div width="300px" height="300px" style="position:relative;left:500px;top:-500px">
+            <p id="messages" style="display:inline-block;float:left;position:absolute"></p>
+        </div>
+    </div>
+    <div>
+        <label for="angle">Angle of shot:</label>
+        <input placeholder="0" id="angle" required />
+        <label for="pow">Power of shot:</label>
+        <input placeholder="1-10" id="pow" required />
+        <input type="button" id="button" value="Fore!" />
+    </div>
+
+    <script src="Scripts/golf.js"></script>
+</body>
+</html>
