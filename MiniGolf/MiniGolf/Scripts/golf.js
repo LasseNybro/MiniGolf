@@ -7,20 +7,20 @@ var simpleObj = [{
     thick: 10,
     shape: "rectEmp"
 }, {
-        x: 200,
-        y: 110,
-        rad: 50,
-        thick: 10,
-        shape: "circle"
-    },{
-        x: 390,
-        y: 120,
-        shape: "hole"
-    }, {
-        x: 45,
-        y: 130,
-        shape: "start"
-    }]
+    x: 200,
+    y: 110,
+    rad: 50,
+    thick: 10,
+    shape: "circle"
+}, {
+    x: 390,
+    y: 120,
+    shape: "hole"
+}, {
+    x: 45,
+    y: 130,
+    shape: "start"
+}]
 
 var mediumObj = [{
     x: 15,
@@ -35,36 +35,36 @@ var mediumObj = [{
     width: 120,
     height: 10,
     thick: 10,
-        shape: "barrier"
-    }, {
-        x: 250,
-        y: 50,
-        width: 50,
-        height: 100,
-        thick: 10,
-        shape: "barrier"
-    }, {
-        x: 90,
-        y: 300,
-        width: 300,
-        height: 25,
-        thick: 10,
-        shape: "barrier"
-    }, {
-        x: 315,
-        y: 200,
-        width: 115,
-        height: 10,
-        thick: 10,
-        shape: "barrier"
-    }, {
-        x: 200,
-        y: 15,
-        width: 10,
-        height: 285,
-        thick: 10,
-        shape: "barrier"
-    }/*, {
+    shape: "barrier"
+}, {
+    x: 250,
+    y: 50,
+    width: 50,
+    height: 100,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 90,
+    y: 300,
+    width: 300,
+    height: 25,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 315,
+    y: 200,
+    width: 115,
+    height: 10,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 200,
+    y: 15,
+    width: 10,
+    height: 285,
+    thick: 10,
+    shape: "barrier"
+}/*, {
         x: 200,
         y: 325,
         width: 100,
@@ -72,14 +72,14 @@ var mediumObj = [{
         thick: 0,
         shape: "speedBoost"
     }*/, {
-        x: 390,
-        y: 60,
-        shape: "hole"
-    }, {
-        x: 60+Math.PI,
-        y: 50 + Math.PI,
-        shape: "start"
-    }]
+    x: 390,
+    y: 60,
+    shape: "hole"
+}, {
+    x: 60 + Math.PI,
+    y: 50 + Math.PI,
+    shape: "start"
+}]
 
 var impossibleObj = [{
     x: 15,
@@ -90,8 +90,8 @@ var impossibleObj = [{
     shape: "rectEmp"
 }, {
     x: 15,
-    y: 105,
-    width: 320,
+    y: 110,
+    width: 325,
     height: 10,
     thick: 10,
     shape: "barrier"
@@ -110,8 +110,8 @@ var impossibleObj = [{
     thick: 10,
     shape: "barrier"
 }, {
-    x: 245,
-    y: 230,
+    x: 235,
+    y: 249,
     width: 185,
     height: 10,
     thick: 10,
@@ -123,14 +123,76 @@ var impossibleObj = [{
     height: 70,
     thick: 10,
     shape: "barrier"
-    }, {
-        x: 235,
-        y: 115,
-        width: 10,
-        height: 40,
-        thick: 10,
-        shape: "barrier"
-    }, {
+}, {
+    x: 235,
+    y: 115,
+    width: 10,
+    height: 40,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 185,
+    y: 175,
+    width: 50,
+    height: 10,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 175,
+    y: 145,
+    width: 10,
+    height: 250,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 405,
+    y: 40,
+    rad: 20,
+    thick: 10,
+    shape: "circle"
+}, {
+    x: 385,
+    y: 180,
+    rad: 15,
+    thick: 10,
+    shape: "circle"
+}, {
+    x: 285,
+    y: 215,
+    rad: 17,
+    thick: 10,
+    shape: "circle"
+}, {
+    x: 205,
+    y: 130,
+    rad: 10,
+    thick: 10,
+    shape: "circle"
+}, {
+    x: 135,
+    y: 170,
+    rad: 20,
+    thick: 10,
+    xvel: 0,
+    yvel: 2.5,
+    shape: "circleMov"
+}, {
+    x: 65,
+    y: 160,
+    rad: 15,
+    thick: 10,
+    xvel: 3,
+    yvel: 2,
+    shape: "circleMov"
+}, {
+    x: 105,
+    y: 240,
+    rad: 30,
+    thick: 10,
+    xvel: 4,
+    yvel: 2.5,
+    shape: "circleMov"
+}, {
     x: 215,
     y: 215,
     shape: "hole"
@@ -159,8 +221,8 @@ var myVar;
 var stop = 0;
 
 //Map Variables
-var xHole=60;
-var yHole=60;
+var xHole = 60;
+var yHole = 60;
 
 //Golf Ball Variables
 var angle = document.getElementById("angle");
@@ -198,7 +260,7 @@ function drawMap() {
                 ctx.fillStyle = "black";
                 ctx.fillRect(borders[i].x, borders[i].y, borders[i].width, borders[i].height);
                 ctx.fillStyle = "forestgreen";
-                ctx.fillRect(borders[i].x + borders[i].thick, borders[i].y + borders[i].thick, borders[i].width - 2* borders[i].thick, borders[i].height - 2* borders[i].thick);
+                ctx.fillRect(borders[i].x + borders[i].thick, borders[i].y + borders[i].thick, borders[i].width - 2 * borders[i].thick, borders[i].height - 2 * borders[i].thick);
                 break;
             case "barrier":
                 ctx.fillStyle = "black";
@@ -211,6 +273,15 @@ function drawMap() {
                 ctx.fillRect(borders[i].x, borders[i].y, borders[i].width, borders[i].height);
                 break;*/
             case "circle":
+                ctx.fillStyle = "black";
+                ctx.strokeStyle = "black";
+                ctx.moveTo(borders[i].x + borders[i].rad, borders[i].y) //Something here is off, it doesn't move to "hole" before it draws the "hole", and it is being drawn twice...
+                ctx.beginPath();
+                ctx.arc(borders[i].x, borders[i].y, borders[i].rad, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+                break;
+            case "circleMov":
                 ctx.fillStyle = "black";
                 ctx.strokeStyle = "black";
                 ctx.moveTo(borders[i].x + borders[i].rad, borders[i].y) //Something here is off, it doesn't move to "hole" before it draws the "hole", and it is being drawn twice...
@@ -272,7 +343,7 @@ function goal() {
         if (shots == 1) {
             document.getElementById("messages").innerHTML += ("HOLE IN ONE! That is impressive!<br/>");
         } else {
-        document.getElementById("messages").innerHTML += ("Congratulations! You got it in the hole in only " + shots + " shots.<br/>");
+            document.getElementById("messages").innerHTML += ("Congratulations! You got it in the hole in only " + shots + " shots.<br/>");
         }
         shots = 0;
         vel = 0;
@@ -287,43 +358,17 @@ function collision() {
     for (var i = 0; i < borders.length; i++) {
         switch (borders[i].shape) {
             case ("rectEmp"):
-                /*if (x >= (borders[i].width - borders[i].thick + borders[i].x - rad)
-                    || x <= (borders[i].x + borders[i].thick + rad)) {
-                    if (y >= (borders[i].height - borders[i].thick + borders[i].y - rad)
-                        || y <= (borders[i].y + borders[i].thick + rad)) {
-                        xvel = -xvel;
-                        yvel = -yvel;
-                    } else {
-                        xvel = -xvel;
-                    }
-                } else if (y >= (borders[i].height - borders[i].thick + borders[i].y - rad)
-                    || y <= (borders[i].y + borders[i].thick + rad)) {
-                    yvel = -yvel;
-                }*/
                 ymin = ((borders[i].y + borders[i].thick + rad));
                 ymax = ((borders[i].height - borders[i].thick + borders[i].y - rad));
                 xmin = ((borders[i].x + borders[i].thick + rad));
                 xmax = ((borders[i].width - borders[i].thick + borders[i].x - rad));
 
                 if (x >= xmax || x <= xmin) {
-                    xvel = -1.01*xvel;
+                    xvel = -xvel;
                 }
                 if (y <= ymin || y >= ymax) {
-                    yvel = -1.01*yvel;
+                    yvel = - yvel;
                 }
-
-                //Make a new collision checker, for x and y individually and handle the case of both of them by checking both of them.
-
-                /*    if (x >= xmax || y <= ymin || y >= ymax || x <= xmin) {
-                    if (!(x <= (xmax - Math.abs(5 * xvel / timeScale)) && x >= (xmin + Math.abs(5 * xvel / timeScale)))) {
-                        xvel = -xvel;
-                    } else if (!(y >= (ymax + Math.abs(5 * yvel / timeScale)) && y <= (ymin + Math.abs(5 * yvel / timeScale)))) {
-                        yvel = -yvel;
-                    } else {
-                        xvel = -xvel;
-                        yvel = -yvel;
-                    }
-                }*/
                 break;
             case ("barrier"):
                 ymin = ((borders[i].y - rad));
@@ -332,28 +377,120 @@ function collision() {
                 xmax = ((borders[i].width + borders[i].x + rad));
 
                 if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
-                    if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs( xvel / timeScale)))) {
+                    if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
                         xvel = -xvel;
                     };
-                    if (!(y <= (ymax - Math.abs( yvel / timeScale)) && y >= (ymin + Math.abs( yvel / timeScale)))) {
+                    if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
                         yvel = -yvel;
                     }
                 }
                 break;
             case ("circle"):
-
+                var dx = borders[i].x - x;
+                var dy = borders[i].y - y;
+                if (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) <= (borders[i].rad + rad)) {
+                    var reflectionPlaneAngle = Math.PI / 2 + Math.acos(dx / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))) * Math.sign(Math.asin(dy / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))));
+                    var xvelReflected = xvel * Math.cos(2 * reflectionPlaneAngle) + yvel * Math.sin(2 * reflectionPlaneAngle);
+                    var yvelReflected = xvel * Math.sin(2 * reflectionPlaneAngle) - yvel * Math.cos(2 * reflectionPlaneAngle);
+                    xvel = xvelReflected;
+                    yvel = yvelReflected;
+                }
+                break;
+            case ("circleMov"):
+                var dx = borders[i].x - x;
+                var dy = borders[i].y - y;
+                if (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) <= (borders[i].rad + rad)) {
+                    var reflectionPlaneAngle = Math.PI / 2 + Math.acos(dx / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))) * Math.sign(Math.asin(dy / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))));
+                    var xvelReflected = xvel * Math.cos(2 * reflectionPlaneAngle) + yvel * Math.sin(2 * reflectionPlaneAngle);
+                    var yvelReflected = xvel * Math.sin(2 * reflectionPlaneAngle) - yvel * Math.cos(2 * reflectionPlaneAngle);
+                    xvel = xvelReflected;
+                    yvel = yvelReflected;
+                    break;
+                }
         };
     }
-    slowDown()*10/time;
+    slowDown() * 10 / time;
     x += xvel / timeScale;
     y += yvel / timeScale;
     vel = Math.sqrt(Math.pow(xvel, 2) + Math.pow(yvel, 2));
 }
+//The collision of moving circles with other obstacles
+function collisionMovs() {
+    for (var j = 0; j < borders.length; j++) {
+        if (borders[j].shape == "circleMov") {
+            var xvel = borders[j].xvel;
+            var yvel = borders[j].yvel;
+            var x = borders[j].x;
+            var y = borders[j].y;
+            var rad = borders[j].rad;
+            for (var i = 0; i < borders.length; i++) {
+                switch (borders[i].shape) {
+                    case ("rectEmp"):
+                        ymin = ((borders[i].y + borders[i].thick + rad));
+                        ymax = ((borders[i].height - borders[i].thick + borders[i].y - rad));
+                        xmin = ((borders[i].x + borders[i].thick + rad));
+                        xmax = ((borders[i].width - borders[i].thick + borders[i].x - rad));
+
+                        if (x >= xmax || x <= xmin) {
+                            xvel = -xvel;
+                        }
+                        if (y <= ymin || y >= ymax) {
+                            yvel = -yvel;
+                        }
+                        break;
+                    case ("barrier"):
+                        ymin = ((borders[i].y - rad));
+                        ymax = ((borders[i].height + borders[i].y + rad));
+                        xmin = ((borders[i].x - rad));
+                        xmax = ((borders[i].width + borders[i].x + rad));
+
+                        if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
+                            if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
+                                xvel = -xvel;
+                            };
+                            if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
+                                yvel = -yvel;
+                            }
+                        }
+                        break;
+                    case ("circle"):
+                        var dx = borders[i].x - x;
+                        var dy = borders[i].y - y;
+                        if (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) <= (borders[i].rad + rad)) {
+                            var reflectionPlaneAngle = Math.PI / 2 + Math.acos(dx / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))) * Math.sign(Math.asin(dy / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))));
+                            var xvelReflected = xvel * Math.cos(2 * reflectionPlaneAngle) + yvel * Math.sin(2 * reflectionPlaneAngle);
+                            var yvelReflected = xvel * Math.sin(2 * reflectionPlaneAngle) - yvel * Math.cos(2 * reflectionPlaneAngle);
+                            xvel = xvelReflected;
+                            yvel = yvelReflected;
+                            break;
+                        }
+                    case ("circleMov"):
+                        if (j != i) {
+                        var dx = borders[i].x - x;
+                        var dy = borders[i].y - y;
+                            if (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) <= (borders[i].rad + rad)) {
+                                var reflectionPlaneAngle = Math.PI / 2 + Math.acos(dx / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))) * Math.sign(Math.asin(dy / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))));
+                                var xvelReflected = xvel * Math.cos(2 * reflectionPlaneAngle) + yvel * Math.sin(2 * reflectionPlaneAngle);
+                                var yvelReflected = xvel * Math.sin(2 * reflectionPlaneAngle) - yvel * Math.cos(2 * reflectionPlaneAngle);
+                                xvel = xvelReflected;
+                                yvel = yvelReflected;
+                                break;
+                            }
+                        }
+                };
+            }
+            borders[j].xvel = xvel;
+            borders[j].yvel = yvel;
+            borders[j].x += xvel / timeScale;
+            borders[j].y += yvel / timeScale;
+        }
+    }
+}
 
 //Accounting for realism
 function slowDown() {
-        xvel *= 1 + acc / (timeScale * arbFac);
-        yvel *= 1 + acc / (timeScale * arbFac);
+    xvel *= 1 + acc / (timeScale * arbFac);
+    yvel *= 1 + acc / (timeScale * arbFac);
 }
 
 //Function to run functions and ending each shot
@@ -363,7 +500,8 @@ function runFunctions() {
     goal();
     drawBall();
     collision();
-    if (vel <= 3.5 && vel >0) {
+    collisionMovs();
+    if (vel <= 3.5 && vel > 0) {
         clearInterval(myVar);
         document.getElementById("messages").innerHTML += String(shots) + " : It didn't go in, try again! <br/>"
         pow.removeAttribute("disabled");
@@ -374,7 +512,7 @@ function runFunctions() {
 
 //Function to convert numbers inputted into a shot
 function shot() {
-    vel = pow.value*10;
+    vel = pow.value * 10;
     if (pow.value > 10 || pow.value < 1) {
         pow.customError = true;
         pow.setCustomValidity("Must be in the range 1-10");
@@ -393,7 +531,7 @@ function shot() {
         button.removeAttribute("disabled");
         stop = 0;
     }
-    xvel = Math.cos(angle.value/180*Math.PI) * vel;
+    xvel = Math.cos(angle.value / 180 * Math.PI) * vel;
     yvel = Math.sin(angle.value / 180 * Math.PI) * vel;
     shots += 1;
     myVar = setInterval(runFunctions, time);
@@ -413,16 +551,16 @@ function drawArrow() {
         size = pow.value + 5;
     }
     var dir = angle.value;
-    var xsize = Math.cos(dir * Math.PI / 180)*size;
+    var xsize = Math.cos(dir * Math.PI / 180) * size;
     var ysize = Math.sin(dir * Math.PI / 180) * size;
     var xLeftProng = Math.cos((dir) * Math.PI / 180 - 60) * arrowHead;
-    var yLeftProng = Math.sin((dir) * Math.PI / 180-60) * arrowHead;
-    var xRightProng = Math.cos((dir) * Math.PI / 180+60) * arrowHead;
-    var yRightProng = Math.sin((dir) * Math.PI / 180+60) * arrowHead;
+    var yLeftProng = Math.sin((dir) * Math.PI / 180 - 60) * arrowHead;
+    var xRightProng = Math.cos((dir) * Math.PI / 180 + 60) * arrowHead;
+    var yRightProng = Math.sin((dir) * Math.PI / 180 + 60) * arrowHead;
     ctx.strokeStyle = "blue";
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(x ,y);
+    ctx.moveTo(x, y);
     ctx.lineTo(x + xsize, y + ysize);
     ctx.lineTo(x + xsize + xLeftProng, y + ysize + yLeftProng);
     ctx.lineTo(x + xsize + xRightProng, y + ysize + yRightProng);
@@ -432,7 +570,7 @@ function drawArrow() {
 }
 
 function restart(obj) {
-    switch(obj) {
+    switch (obj) {
         case 0:
             borders = simpleObj;
             document.getElementById("messages").innerHTML = "You are playing the simple map, good luck!<br/>";
@@ -450,7 +588,7 @@ function restart(obj) {
     x = xstart;
     y = ystart;
     drawBall();
-    if (myVar!=null) {
+    if (myVar != null) {
         clearInterval(myVar)
     };
     pow.removeAttribute("disabled");
@@ -485,9 +623,9 @@ function mouseMove(event) {
 }
 
 button.addEventListener("click", shot);
-simple.addEventListener("click", function () { restart(0)});
-medium.addEventListener("click", function () { restart(1)});
-impossible.addEventListener("click", function () { restart(2)});
+simple.addEventListener("click", function () { restart(0) });
+medium.addEventListener("click", function () { restart(1) });
+impossible.addEventListener("click", function () { restart(2) });
 pow.addEventListener("input", drawArrow);
 angle.addEventListener("input", drawArrow);
 canvas.addEventListener("onmousedown", dragShot);
