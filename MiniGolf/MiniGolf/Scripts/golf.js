@@ -110,9 +110,9 @@ var impossibleObj = [{
     thick: 10,
     shape: "barrier"
 }, {
-    x: 235,
+    x: 215,
     y: 249,
-    width: 185,
+    width: 205,
     height: 10,
     thick: 10,
     shape: "barrier"
@@ -144,6 +144,85 @@ var impossibleObj = [{
     height: 250,
     thick: 10,
     shape: "barrier"
+}, {
+    x: 185,
+    y: 350,
+    width: 200,
+    height: 10,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 200,
+    y: 40,
+    width: 10,
+    height: 30,
+    thick: 10,
+    xvel: 0,
+    yvel: 2,
+    shape: "barrierMov"
+}, {
+    x: 210,
+    y: 370,
+    width: 10,
+    height: 20,
+    thick: 10,
+    xvel: 0,
+    yvel: 2,
+    shape: "barrierMov"
+}, {
+    x: 250,
+    y: 370,
+    width: 10,
+    height: 25,
+    thick: 10,
+    xvel: 0,
+    yvel: 2.2,
+    shape: "barrierMov"
+}, {
+    x: 290,
+    y: 370,
+    width: 50,
+    height: 10,
+    thick: 10,
+    xvel: 0,
+    yvel: 4,
+    shape: "barrierMov"
+}, {
+    x: 390,
+    y: 350,
+    width: 10,
+    height: 10,
+    thick: 10,
+    xvel: 2,
+    yvel: 0,
+    shape: "barrierMov"
+}, {
+    x: 370,
+    y: 270,
+    width: 10,
+    height: 50,
+    thick: 10,
+    xvel: 0,
+    yvel: 1,
+    shape: "barrierMov"
+}, {
+    x: 310,
+    y: 280,
+    width: 10,
+    height: 55,
+    thick: 10,
+    xvel: 0,
+    yvel: 4,
+    shape: "barrierMov"
+}, {
+    x: 330,
+    y: 300,
+    width: 30,
+    height: 10,
+    thick: 10,
+    xvel: 2,
+    yvel: 0,
+    shape: "barrierMov"
 }, {
     x: 405,
     y: 40,
@@ -193,6 +272,38 @@ var impossibleObj = [{
     yvel: 2.5,
     shape: "circleMov"
 }, {
+    x: 75,
+    y: 300,
+    rad: 12,
+    thick: 10,
+    xvel: 5.6,
+    yvel: 7,
+    shape: "circleMov"
+}, {
+    x: 135,
+    y: 305,
+    rad: 13,
+    thick: 10,
+    xvel: -5,
+    yvel: 0,
+    shape: "circleMov"
+}, {
+    x: 145,
+    y: 370,
+    rad: 25,
+    thick: 10,
+    xvel: -3,
+    yvel: -4,
+    shape: "circleMov"
+}, {
+    x: 245,
+    y: 300,
+    rad: 20,
+    thick: 10,
+    xvel: -10,
+    yvel: -9,
+    shape: "circleMov"
+}, {
     x: 215,
     y: 215,
     shape: "hole"
@@ -216,7 +327,7 @@ var timeScale = (100 / time);
 var totTime = 0;
 var arbFac = 5;
 var arrowHead = 10;
-var borders = mediumObj;
+var borders = JSON.parse(JSON.stringify(mediumObj));
 var myVar;
 var stop = 0;
 
@@ -266,6 +377,13 @@ function drawMap() {
                 ctx.fillStyle = "black";
                 ctx.fillRect(borders[i].x, borders[i].y, borders[i].width, borders[i].height);
                 break;
+            case "barrierMov":
+                ctx.fillStyle = "yellow";
+                ctx.strokeStyle = "black";
+                ctx.fillRect(borders[i].x, borders[i].y, borders[i].width, borders[i].height);
+                ctx.lineWidth = 2;
+                ctx.strokeRect(borders[i].x, borders[i].y, borders[i].width, borders[i].height);
+                break;
             /*case "speedBoost":
                 gradient = ctx.createLinearGradient(borders[i].x, 0, borders[i].x+borders[i].width, 0);
                 addColorStops(gradient);
@@ -282,7 +400,7 @@ function drawMap() {
                 ctx.stroke();
                 break;
             case "circleMov":
-                ctx.fillStyle = "black";
+                ctx.fillStyle = "yellow";
                 ctx.strokeStyle = "black";
                 ctx.moveTo(borders[i].x + borders[i].rad, borders[i].y) //Something here is off, it doesn't move to "hole" before it draws the "hole", and it is being drawn twice...
                 ctx.beginPath();
@@ -385,6 +503,21 @@ function collision() {
                     }
                 }
                 break;
+            case ("barrierMov"):
+                ymin = ((borders[i].y - rad));
+                ymax = ((borders[i].height + borders[i].y + rad));
+                xmin = ((borders[i].x - rad));
+                xmax = ((borders[i].width + borders[i].x + rad));
+
+                if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
+                    if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
+                        xvel = -xvel + borders[i].xvel;
+                    };
+                    if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
+                        yvel = -yvel + borders[i].xvel;
+                    }
+                }
+                break;
             case ("circle"):
                 var dx = borders[i].x - x;
                 var dy = borders[i].y - y;
@@ -403,13 +536,13 @@ function collision() {
                     var reflectionPlaneAngle = Math.PI / 2 + Math.acos(dx / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))) * Math.sign(Math.asin(dy / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))));
                     var xvelReflected = xvel * Math.cos(2 * reflectionPlaneAngle) + yvel * Math.sin(2 * reflectionPlaneAngle);
                     var yvelReflected = xvel * Math.sin(2 * reflectionPlaneAngle) - yvel * Math.cos(2 * reflectionPlaneAngle);
-                    xvel = xvelReflected;
-                    yvel = yvelReflected;
-                    break;
+                    alert(xvelReflected + " - " + 2 * Math.sign(dx) + " + " + yvelReflected + " - " + 2 * Math.sign(dy));
+                    xvel = xvelReflected - Math.abs(borders[i].xvel)*Math.sign(dx);
+                    yvel = yvelReflected - Math.abs(borders[i].xvel)*Math.sign(dy);
                 }
         };
     }
-    slowDown() * 10 / time;
+    slowDown();// * 10 / time;
     x += xvel / timeScale;
     y += yvel / timeScale;
     vel = Math.sqrt(Math.pow(xvel, 2) + Math.pow(yvel, 2));
@@ -462,22 +595,95 @@ function collisionMovs() {
                             var yvelReflected = xvel * Math.sin(2 * reflectionPlaneAngle) - yvel * Math.cos(2 * reflectionPlaneAngle);
                             xvel = xvelReflected;
                             yvel = yvelReflected;
-                            break;
                         }
+                        break;
                     case ("circleMov"):
                         if (j != i) {
-                        var dx = borders[i].x - x;
-                        var dy = borders[i].y - y;
+                            var dx = borders[i].x - x;
+                            var dy = borders[i].y - y;
+                            var velScale = Math.sqrt((Math.pow(borders[i].xvel, 2) + Math.pow(borders[i].yvel, 2)) / (Math.pow(xvel, 2) + Math.pow(yvel, 2)));
                             if (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) <= (borders[i].rad + rad)) {
                                 var reflectionPlaneAngle = Math.PI / 2 + Math.acos(dx / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))) * Math.sign(Math.asin(dy / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))));
-                                var xvelReflected = xvel * Math.cos(2 * reflectionPlaneAngle) + yvel * Math.sin(2 * reflectionPlaneAngle);
-                                var yvelReflected = xvel * Math.sin(2 * reflectionPlaneAngle) - yvel * Math.cos(2 * reflectionPlaneAngle);
+                                var xvelReflected = xvel * velScale * Math.cos(2 * reflectionPlaneAngle) + yvel * Math.sin(2 * reflectionPlaneAngle);
+                                var yvelReflected = xvel * velScale * Math.sin(2 * reflectionPlaneAngle) - yvel * Math.cos(2 * reflectionPlaneAngle);
                                 xvel = xvelReflected;
                                 yvel = yvelReflected;
-                                break;
                             }
                         }
+                        break;
+                    case ("barrierMov"):
+                        ymin = ((borders[i].y - rad));
+                        ymax = ((borders[i].height + borders[i].y + rad));
+                        xmin = ((borders[i].x - rad));
+                        xmax = ((borders[i].width + borders[i].x + rad));
+                        if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
+                            if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
+                                xvel = -xvel;
+                            };
+                            if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
+                                yvel = -yvel;
+                            }
+                        }
+                        break;
                 };
+            }
+            borders[j].xvel = xvel;
+            borders[j].yvel = yvel;
+            borders[j].x += xvel / timeScale;
+            borders[j].y += yvel / timeScale;
+        }
+        if (borders[j].shape == "barrierMov") {
+            var xvel = borders[j].xvel;
+            var yvel = borders[j].yvel;
+            var x = borders[j].x;
+            var y = borders[j].y;
+            var width = borders[j].width;
+            var height = borders[j].height
+            for (var i = 0; i < borders.length; i++) {
+                switch (borders[i].shape) {
+                    case ("rectEmp"):
+                        ymin = ((borders[i].y + borders[i].thick));
+                        ymax = ((borders[i].height - borders[i].thick + borders[i].y - height));
+                        xmin = ((borders[i].x + borders[i].thick));
+                        xmax = ((borders[i].width - borders[i].thick + borders[i].x - width));
+                        if (x >= xmax || x <= xmin) {
+                            xvel = -xvel;
+                        }
+                        if (y <= ymin || y >= ymax) {
+                            yvel = -yvel;
+                        }
+                        break;
+                    case ("barrier"):
+                        ymin = ((borders[i].y - height));
+                        ymax = ((borders[i].height + borders[i].y));
+                        xmin = ((borders[i].x - width));
+                        xmax = ((borders[i].width + borders[i].x));
+                        if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
+                            if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
+                                xvel = -xvel;
+                            };
+                            if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
+                                yvel = -yvel;
+                            }
+                        }
+                        break;
+                    case ("barrierMov"):
+                        if (j != i) {
+                            ymin = ((borders[i].y - height));
+                            ymax = ((borders[i].height + borders[i].y));
+                            xmin = ((borders[i].x - width));
+                            xmax = ((borders[i].width + borders[i].x));
+                            if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
+                                if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
+                                    xvel = -xvel;
+                                };
+                                if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
+                                    yvel = -yvel;
+                                }
+                            }
+                        }
+                        break;
+                }
             }
             borders[j].xvel = xvel;
             borders[j].yvel = yvel;
@@ -572,15 +778,15 @@ function drawArrow() {
 function restart(obj) {
     switch (obj) {
         case 0:
-            borders = simpleObj;
+            borders = JSON.parse(JSON.stringify(simpleObj));
             document.getElementById("messages").innerHTML = "You are playing the simple map, good luck!<br/>";
             break;
         case 1:
-            borders = mediumObj;
+            borders = JSON.parse(JSON.stringify(mediumObj));
             document.getElementById("messages").innerHTML = "You are playing the medium map, good luck!<br/>";
             break;
         case 2:
-            borders = impossibleObj;
+            borders = JSON.parse(JSON.stringify(impossibleObj));
             document.getElementById("messages").innerHTML = "You are playing the impossible map, good luck!<br/>";
             break;
     }
