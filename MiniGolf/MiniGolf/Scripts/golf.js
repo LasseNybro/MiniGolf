@@ -88,69 +88,62 @@ var impossibleObj = [{
     height: 415,
     thick: 10,
     shape: "rectEmp"
-}, {
-    x: 15,
-    y: 110,
-    width: 325,
-    height: 10,
-    thick: 10,
-    shape: "barrier"
-}, {
-    x: 370,
-    y: 115,
-    width: 50,
-    height: 10,
-    thick: 10,
-    shape: "barrier"
-}, {
-    x: 335,
-    y: 105,
-    width: 10,
-    height: 100,
-    thick: 10,
-    shape: "barrier"
-}, {
-    x: 215,
-    y: 249,
-    width: 205,
-    height: 10,
-    thick: 10,
-    shape: "barrier"
-}, {
-    x: 235,
+},{
+    x: 135,
     y: 170,
-    width: 10,
-    height: 70,
+    rad: 20,
     thick: 10,
-    shape: "barrier"
+    xvel: 0,
+    yvel: 2.5,
+    shape: "circleMov"
 }, {
-    x: 235,
-    y: 115,
-    width: 10,
-    height: 40,
+    x: 65,
+    y: 160,
+    rad: 15,
     thick: 10,
-    shape: "barrier"
+    xvel: 3,
+    yvel: 2,
+    shape: "circleMov"
 }, {
-    x: 185,
-    y: 175,
-    width: 50,
-    height: 10,
+    x: 105,
+    y: 240,
+    rad: 30,
     thick: 10,
-    shape: "barrier"
+    xvel: 4,
+    yvel: 2.5,
+    shape: "circleMov"
 }, {
-    x: 175,
-    y: 145,
-    width: 10,
-    height: 250,
+    x: 75,
+    y: 300,
+    rad: 12,
     thick: 10,
-    shape: "barrier"
+    xvel: 5.6,
+    yvel: 7,
+    shape: "circleMov"
 }, {
-    x: 185,
-    y: 350,
-    width: 200,
-    height: 10,
+    x: 135,
+    y: 305,
+    rad: 13,
     thick: 10,
-    shape: "barrier"
+    xvel: -5,
+    yvel: 0,
+    shape: "circleMov"
+}, {
+    x: 145,
+    y: 370,
+    rad: 25,
+    thick: 10,
+    xvel: -3,
+    yvel: -4,
+    shape: "circleMov"
+}, {
+    x: 245,
+    y: 300,
+    rad: 20,
+    thick: 10,
+    xvel: -10,
+    yvel: -9,
+    shape: "circleMov"
 }, {
     x: 200,
     y: 40,
@@ -224,6 +217,69 @@ var impossibleObj = [{
     yvel: 0,
     shape: "barrierMov"
 }, {
+    x: 15,
+    y: 110,
+    width: 325,
+    height: 10,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 370,
+    y: 115,
+    width: 50,
+    height: 10,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 335,
+    y: 105,
+    width: 10,
+    height: 100,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 215,
+    y: 249,
+    width: 205,
+    height: 10,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 235,
+    y: 170,
+    width: 10,
+    height: 70,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 235,
+    y: 115,
+    width: 10,
+    height: 40,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 185,
+    y: 175,
+    width: 50,
+    height: 10,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 175,
+    y: 145,
+    width: 10,
+    height: 250,
+    thick: 10,
+    shape: "barrier"
+}, {
+    x: 185,
+    y: 350,
+    width: 200,
+    height: 10,
+    thick: 10,
+    shape: "barrier"
+}, {
     x: 405,
     y: 40,
     rad: 20,
@@ -247,62 +303,6 @@ var impossibleObj = [{
     rad: 10,
     thick: 10,
     shape: "circle"
-}, {
-    x: 135,
-    y: 170,
-    rad: 20,
-    thick: 10,
-    xvel: 0,
-    yvel: 2.5,
-    shape: "circleMov"
-}, {
-    x: 65,
-    y: 160,
-    rad: 15,
-    thick: 10,
-    xvel: 3,
-    yvel: 2,
-    shape: "circleMov"
-}, {
-    x: 105,
-    y: 240,
-    rad: 30,
-    thick: 10,
-    xvel: 4,
-    yvel: 2.5,
-    shape: "circleMov"
-}, {
-    x: 75,
-    y: 300,
-    rad: 12,
-    thick: 10,
-    xvel: 5.6,
-    yvel: 7,
-    shape: "circleMov"
-}, {
-    x: 135,
-    y: 305,
-    rad: 13,
-    thick: 10,
-    xvel: -5,
-    yvel: 0,
-    shape: "circleMov"
-}, {
-    x: 145,
-    y: 370,
-    rad: 25,
-    thick: 10,
-    xvel: -3,
-    yvel: -4,
-    shape: "circleMov"
-}, {
-    x: 245,
-    y: 300,
-    rad: 20,
-    thick: 10,
-    xvel: -10,
-    yvel: -9,
-    shape: "circleMov"
 }, {
     x: 215,
     y: 215,
@@ -366,6 +366,8 @@ var dragDiv = document.getElementById("dragShot");
 function drawMap() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (var i = 0; i < borders.length; i++) {
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 2;
         switch (borders[i].shape) {
             case "rectEmp":
                 ctx.fillStyle = "black";
@@ -379,9 +381,7 @@ function drawMap() {
                 break;
             case "barrierMov":
                 ctx.fillStyle = "yellow";
-                ctx.strokeStyle = "black";
                 ctx.fillRect(borders[i].x, borders[i].y, borders[i].width, borders[i].height);
-                ctx.lineWidth = 2;
                 ctx.strokeRect(borders[i].x, borders[i].y, borders[i].width, borders[i].height);
                 break;
             /*case "speedBoost":
@@ -392,8 +392,7 @@ function drawMap() {
                 break;*/
             case "circle":
                 ctx.fillStyle = "black";
-                ctx.strokeStyle = "black";
-                ctx.moveTo(borders[i].x + borders[i].rad, borders[i].y) //Something here is off, it doesn't move to "hole" before it draws the "hole", and it is being drawn twice...
+                ctx.moveTo(borders[i].x + borders[i].rad, borders[i].y) 
                 ctx.beginPath();
                 ctx.arc(borders[i].x, borders[i].y, borders[i].rad, 0, 2 * Math.PI);
                 ctx.fill();
@@ -402,7 +401,7 @@ function drawMap() {
             case "circleMov":
                 ctx.fillStyle = "yellow";
                 ctx.strokeStyle = "black";
-                ctx.moveTo(borders[i].x + borders[i].rad, borders[i].y) //Something here is off, it doesn't move to "hole" before it draws the "hole", and it is being drawn twice...
+                ctx.moveTo(borders[i].x + borders[i].rad, borders[i].y)
                 ctx.beginPath();
                 ctx.arc(borders[i].x, borders[i].y, borders[i].rad, 0, 2 * Math.PI);
                 ctx.fill();
@@ -430,15 +429,6 @@ function drawMap() {
 // Setting starting position for golfball
 var x = xstart;
 var y = ystart;
-
-/*function drawHole() {
-    ctx.fillStyle = "grey";
-    ctx.strokeStyle = "black";
-    ctx.beginPath();
-    ctx.arc(xHole,yHole,rad+1,0,2*Math.PI);
-    ctx.fill();
-    ctx.stroke();
-}*/
 
 function drawBall() {
     ctx.fillStyle = "white";
@@ -472,6 +462,7 @@ function goal() {
     };
 }
 
+//The collision function for the ball
 function collision() {
     for (var i = 0; i < borders.length; i++) {
         switch (borders[i].shape) {
@@ -512,9 +503,11 @@ function collision() {
                 if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
                     if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
                         xvel = -xvel + borders[i].xvel;
-                    };
-                    if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
-                        yvel = -yvel + borders[i].xvel;
+                        yvel += borders[i].yvel;
+                    };//There is a mistake somewhere here that causes the moving barriers to not always bounce in the y-direction. 
+                    if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) { 
+                        xvel += borders[i].xvel;
+                        yvel = -yvel + borders[i].yvel; 
                     }
                 }
                 break;
@@ -525,21 +518,23 @@ function collision() {
                     var reflectionPlaneAngle = Math.PI / 2 + Math.acos(dx / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))) * Math.sign(Math.asin(dy / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))));
                     var xvelReflected = xvel * Math.cos(2 * reflectionPlaneAngle) + yvel * Math.sin(2 * reflectionPlaneAngle);
                     var yvelReflected = xvel * Math.sin(2 * reflectionPlaneAngle) - yvel * Math.cos(2 * reflectionPlaneAngle);
+                    x += -dx * (1 - Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) / borders[i].rad);
+                    y += -dy * (1 - Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) / borders[i].rad);
                     xvel = xvelReflected;
                     yvel = yvelReflected;
                 }
                 break;
             case ("circleMov"):
-                var dx = borders[i].x - x;
-                var dy = borders[i].y - y;
+                var dx = x - borders[i].x;
+                var dy = y - borders[i].y;
                 if (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) <= (borders[i].rad + rad)) {
                     var reflectionPlaneAngle = Math.PI / 2 + Math.acos(dx / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))) * Math.sign(Math.asin(dy / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))));
                     var xvelReflected = xvel * Math.cos(2 * reflectionPlaneAngle) + yvel * Math.sin(2 * reflectionPlaneAngle);
                     var yvelReflected = xvel * Math.sin(2 * reflectionPlaneAngle) - yvel * Math.cos(2 * reflectionPlaneAngle);
-                    alert(xvelReflected + " - " + 2 * Math.sign(dx) + " + " + yvelReflected + " - " + 2 * Math.sign(dy));
-                    xvel = xvelReflected - Math.abs(borders[i].xvel)*Math.sign(dx);
-                    yvel = yvelReflected - Math.abs(borders[i].xvel)*Math.sign(dy);
-                }
+                    xvel = xvelReflected + borders[i].xvel;
+                    yvel = yvelReflected + borders[i].yvel;
+                    }
+                break;
         };
     }
     slowDown();// * 10 / time;
@@ -547,6 +542,61 @@ function collision() {
     y += yvel / timeScale;
     vel = Math.sqrt(Math.pow(xvel, 2) + Math.pow(yvel, 2));
 }
+
+//Check if ball ends inside objects
+function insideObjectsCheck() {
+    for (var i = 0; i < borders.length; i++) {
+        switch (borders[i].shape) {
+            case ("rectEmp"):
+                ymin = ((borders[i].y + borders[i].thick + rad));
+                ymax = ((borders[i].height - borders[i].thick + borders[i].y - rad));
+                xmin = ((borders[i].x + borders[i].thick + rad));
+                xmax = ((borders[i].width - borders[i].thick + borders[i].x - rad));
+                if (x < xmin) {
+                    x = xmin;
+                } else if (x > xmax) {
+                    x = xmax;
+                }
+                if (y < ymin) {
+                    y = ymin;
+                } else if (y > ymax) {
+                    y = ymax;
+                }
+                break;
+            case ("barrierMov"):
+            case ("barrier"):
+                ymin = ((borders[i].y - rad));
+                ymax = ((borders[i].height + borders[i].y + rad));
+                xmin = ((borders[i].x - rad));
+                xmax = ((borders[i].width + borders[i].x + rad));
+                if (x < xmax && y > ymin && y < ymax && x > xmin) {
+                    if (x < xmin) {
+                        x = xmin;
+                    } else if (x > xmax) {
+                        x = xmax;
+                    }
+                    if (y < ymin) {
+                        y = ymin;
+                    } else if (y > ymax) {
+                        y = ymax;
+                    }
+                }
+                break;
+            case ("circleMov"):
+            case ("circle"):
+                var dx = x-borders[i].x;
+                var dy = y - borders[i].y;
+                var dL = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+                var angle = Math.acos(dx/dL)*Math.sign(Math.asin(dy/dL));
+                if (dL < (borders[i].rad + rad)) {
+                    x = (borders[i].rad+rad) * Math.cos(angle)+borders[i].x;
+                    y = (borders[i].rad + rad) * Math.sin(angle)+borders[i].y;
+                }
+                break;
+        };
+    }
+}
+
 //The collision of moving circles with other obstacles
 function collisionMovs() {
     for (var j = 0; j < borders.length; j++) {
@@ -707,6 +757,7 @@ function runFunctions() {
     drawBall();
     collision();
     collisionMovs();
+    insideObjectsCheck();
     if (vel <= 3.5 && vel > 0) {
         clearInterval(myVar);
         document.getElementById("messages").innerHTML += String(shots) + " : It didn't go in, try again! <br/>"
