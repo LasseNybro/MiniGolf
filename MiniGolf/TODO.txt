@@ -1,0 +1,11 @@
+Fix power invalid range error, where the timer starts running and never ends.
+Make a CSS stylesheet for the page, in order for the <p> element to not overflow the buttons and input fields.
+Turn on arrow immideately instead of on click on input boxes.
+
+
+
+
+
+Implement a new map, the ball pit, that should be fun!
+
+Implement dragShot Function to enable dragging and shooting.
