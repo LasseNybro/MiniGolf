@@ -88,7 +88,7 @@ var impossibleObj = [{
     height: 415,
     thick: 10,
     shape: "rectEmp"
-},{
+}, {
     x: 135,
     y: 170,
     rad: 20,
@@ -392,7 +392,7 @@ function drawMap() {
                 break;*/
             case "circle":
                 ctx.fillStyle = "black";
-                ctx.moveTo(borders[i].x + borders[i].rad, borders[i].y) 
+                ctx.moveTo(borders[i].x + borders[i].rad, borders[i].y)
                 ctx.beginPath();
                 ctx.arc(borders[i].x, borders[i].y, borders[i].rad, 0, 2 * Math.PI);
                 ctx.fill();
@@ -495,19 +495,21 @@ function collision() {
                 }
                 break;
             case ("barrierMov"):
-                ymin = ((borders[i].y - rad));
-                ymax = ((borders[i].height + borders[i].y + rad));
-                xmin = ((borders[i].x - rad));
-                xmax = ((borders[i].width + borders[i].x + rad));
+                ymin = ((borders[i].y - rad) - 30 * Math.abs(borders[i].yvel / timeScale));
+                ymax = ((borders[i].height + borders[i].y + rad) + 30 * Math.abs(borders[i].yvel / timeScale));
+                xmin = ((borders[i].x - rad) - 30 * Math.abs(borders[i].xvel / timeScale));
+                xmax = ((borders[i].width + borders[i].x + rad) + 30 * Math.abs(borders[i].xvel / timeScale));
 
                 if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
                     if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
-                        xvel = -xvel + borders[i].xvel;
-                        yvel += borders[i].yvel;
-                    };//There is a mistake somewhere here that causes the moving barriers to not always bounce in the y-direction. 
-                    if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) { 
-                        xvel += borders[i].xvel;
-                        yvel = -yvel + borders[i].yvel; 
+                        alert("I am calling this");
+                        xvel = -xvel + borders[i].xvel/2;
+                        yvel += borders[i].yvel / 2;
+                    };//There is a mistake somewhere here that causes the bounce from moving barriers to not always be correct in the y-direction. 
+                    if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
+                        alert("I am calling that");
+                        xvel += borders[i].xvel / 2;
+                        yvel = -yvel + borders[i].yvel/2;
                     }
                 }
                 break;
@@ -533,7 +535,7 @@ function collision() {
                     var yvelReflected = xvel * Math.sin(2 * reflectionPlaneAngle) - yvel * Math.cos(2 * reflectionPlaneAngle);
                     xvel = xvelReflected + borders[i].xvel;
                     yvel = yvelReflected + borders[i].yvel;
-                    }
+                }
                 break;
         };
     }
@@ -563,34 +565,28 @@ function insideObjectsCheck() {
                     y = ymax;
                 }
                 break;
-            case ("barrierMov"):
-            case ("barrier"):
+            /*case ("barrierMov"):
                 ymin = ((borders[i].y - rad));
                 ymax = ((borders[i].height + borders[i].y + rad));
                 xmin = ((borders[i].x - rad));
                 xmax = ((borders[i].width + borders[i].x + rad));
-                if (x < xmax && y > ymin && y < ymax && x > xmin) {
-                    if (x < xmin) {
-                        x = xmin;
-                    } else if (x > xmax) {
-                        x = xmax;
-                    }
-                    if (y < ymin) {
-                        y = ymin;
-                    } else if (y > ymax) {
-                        y = ymax;
-                    }
+                if (x + 5 * xvel / timeScale < xmax
+                    && y - 5 * yvel / timeScale > ymin
+                    && y + 5 * yvel / timeScale < ymax
+                    && x - 5 * xvel / timeScale > xmin) {
+                    
+                    
                 }
-                break;
+                break;*/
             case ("circleMov"):
             case ("circle"):
-                var dx = x-borders[i].x;
+                var dx = x - borders[i].x;
                 var dy = y - borders[i].y;
                 var dL = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-                var angle = Math.acos(dx/dL)*Math.sign(Math.asin(dy/dL));
+                var angle = Math.acos(dx / dL) * Math.sign(Math.asin(dy / dL));
                 if (dL < (borders[i].rad + rad)) {
-                    x = (borders[i].rad+rad) * Math.cos(angle)+borders[i].x;
-                    y = (borders[i].rad + rad) * Math.sin(angle)+borders[i].y;
+                    x = (borders[i].rad + rad) * Math.cos(angle) + borders[i].x;
+                    y = (borders[i].rad + rad) * Math.sin(angle) + borders[i].y;
                 }
                 break;
         };
@@ -600,11 +596,11 @@ function insideObjectsCheck() {
 //The collision of moving circles with other obstacles
 function collisionMovs() {
     for (var j = 0; j < borders.length; j++) {
+        var xvel = borders[j].xvel;
+        var yvel = borders[j].yvel;
+        var x1 = borders[j].x;
+        var y1 = borders[j].y;
         if (borders[j].shape == "circleMov") {
-            var xvel = borders[j].xvel;
-            var yvel = borders[j].yvel;
-            var x = borders[j].x;
-            var y = borders[j].y;
             var rad = borders[j].rad;
             for (var i = 0; i < borders.length; i++) {
                 switch (borders[i].shape) {
@@ -614,10 +610,10 @@ function collisionMovs() {
                         xmin = ((borders[i].x + borders[i].thick + rad));
                         xmax = ((borders[i].width - borders[i].thick + borders[i].x - rad));
 
-                        if (x >= xmax || x <= xmin) {
+                        if (x1 >= xmax || x1 <= xmin) {
                             xvel = -xvel;
                         }
-                        if (y <= ymin || y >= ymax) {
+                        if (y1 <= ymin || y1 >= ymax) {
                             yvel = -yvel;
                         }
                         break;
@@ -627,18 +623,18 @@ function collisionMovs() {
                         xmin = ((borders[i].x - rad));
                         xmax = ((borders[i].width + borders[i].x + rad));
 
-                        if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
-                            if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
+                        if (x1 <= xmax && y1 >= ymin && y1 <= ymax && x1 >= xmin) {
+                            if (!(x1 <= (xmax - Math.abs(xvel / timeScale)) && x1 >= (xmin + Math.abs(xvel / timeScale)))) {
                                 xvel = -xvel;
                             };
-                            if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
+                            if (!(y1 <= (ymax - Math.abs(yvel / timeScale)) && y1 >= (ymin + Math.abs(yvel / timeScale)))) {
                                 yvel = -yvel;
                             }
                         }
                         break;
                     case ("circle"):
-                        var dx = borders[i].x - x;
-                        var dy = borders[i].y - y;
+                        var dx = borders[i].x - x1;
+                        var dy = borders[i].y - y1;
                         if (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) <= (borders[i].rad + rad)) {
                             var reflectionPlaneAngle = Math.PI / 2 + Math.acos(dx / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))) * Math.sign(Math.asin(dy / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))));
                             var xvelReflected = xvel * Math.cos(2 * reflectionPlaneAngle) + yvel * Math.sin(2 * reflectionPlaneAngle);
@@ -649,8 +645,8 @@ function collisionMovs() {
                         break;
                     case ("circleMov"):
                         if (j != i) {
-                            var dx = borders[i].x - x;
-                            var dy = borders[i].y - y;
+                            var dx = borders[i].x - x1;
+                            var dy = borders[i].y - y1;
                             var velScale = Math.sqrt((Math.pow(borders[i].xvel, 2) + Math.pow(borders[i].yvel, 2)) / (Math.pow(xvel, 2) + Math.pow(yvel, 2)));
                             if (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) <= (borders[i].rad + rad)) {
                                 var reflectionPlaneAngle = Math.PI / 2 + Math.acos(dx / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))) * Math.sign(Math.asin(dy / (Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)))));
@@ -662,16 +658,18 @@ function collisionMovs() {
                         }
                         break;
                     case ("barrierMov"):
-                        ymin = ((borders[i].y - rad));
-                        ymax = ((borders[i].height + borders[i].y + rad));
-                        xmin = ((borders[i].x - rad));
-                        xmax = ((borders[i].width + borders[i].x + rad));
-                        if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
-                            if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
-                                xvel = -xvel;
-                            };
-                            if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
-                                yvel = -yvel;
+                        if (j != i) {
+                            ymin = ((borders[i].y - rad));
+                            ymax = ((borders[i].height + borders[i].y + rad));
+                            xmin = ((borders[i].x - rad));
+                            xmax = ((borders[i].width + borders[i].x + rad));
+                            if (x1 <= xmax && y1 >= ymin && y1 <= ymax && x1 >= xmin) {
+                                if (!(x1 <= (xmax - Math.abs(xvel / timeScale)) && x1 >= (xmin + Math.abs(xvel / timeScale)))) {
+                                    xvel = -xvel;
+                                };
+                                if (!(y1 <= (ymax - Math.abs(yvel / timeScale)) && y1 >= (ymin + Math.abs(yvel / timeScale)))) {
+                                    yvel = -yvel;
+                                }
                             }
                         }
                         break;
@@ -683,12 +681,8 @@ function collisionMovs() {
             borders[j].y += yvel / timeScale;
         }
         if (borders[j].shape == "barrierMov") {
-            var xvel = borders[j].xvel;
-            var yvel = borders[j].yvel;
-            var x = borders[j].x;
-            var y = borders[j].y;
             var width = borders[j].width;
-            var height = borders[j].height
+            var height = borders[j].height;
             for (var i = 0; i < borders.length; i++) {
                 switch (borders[i].shape) {
                     case ("rectEmp"):
@@ -696,10 +690,10 @@ function collisionMovs() {
                         ymax = ((borders[i].height - borders[i].thick + borders[i].y - height));
                         xmin = ((borders[i].x + borders[i].thick));
                         xmax = ((borders[i].width - borders[i].thick + borders[i].x - width));
-                        if (x >= xmax || x <= xmin) {
+                        if (x1 >= xmax || x1 <= xmin) {
                             xvel = -xvel;
                         }
-                        if (y <= ymin || y >= ymax) {
+                        if (y1 <= ymin || y1 >= ymax) {
                             yvel = -yvel;
                         }
                         break;
@@ -708,11 +702,11 @@ function collisionMovs() {
                         ymax = ((borders[i].height + borders[i].y));
                         xmin = ((borders[i].x - width));
                         xmax = ((borders[i].width + borders[i].x));
-                        if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
-                            if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
+                        if (x1 <= xmax && y1 >= ymin && y1 <= ymax && x1 >= xmin) {
+                            if (!(x1 <= (xmax - Math.abs(xvel / timeScale)) && x1 >= (xmin + Math.abs(xvel / timeScale)))) {
                                 xvel = -xvel;
                             };
-                            if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
+                            if (!(y1 <= (ymax - Math.abs(yvel / timeScale)) && y1 >= (ymin + Math.abs(yvel / timeScale)))) {
                                 yvel = -yvel;
                             }
                         }
@@ -723,11 +717,11 @@ function collisionMovs() {
                             ymax = ((borders[i].height + borders[i].y));
                             xmin = ((borders[i].x - width));
                             xmax = ((borders[i].width + borders[i].x));
-                            if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
-                                if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
+                            if (x1 <= xmax && y1 >= ymin && y1 <= ymax && x1 >= xmin) {
+                                if (!(x1 <= (xmax - Math.abs(xvel / timeScale)) && x1 >= (xmin + Math.abs(xvel / timeScale)))) {
                                     xvel = -xvel;
                                 };
-                                if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
+                                if (!(y1 <= (ymax - Math.abs(yvel / timeScale)) && y1 >= (ymin + Math.abs(yvel / timeScale)))) {
                                     yvel = -yvel;
                                 }
                             }
@@ -739,8 +733,27 @@ function collisionMovs() {
             borders[j].yvel = yvel;
             borders[j].x += xvel / timeScale;
             borders[j].y += yvel / timeScale;
+            //Trying to check whether the moving object enters the area of the ball, and then to move the ball when it happens
+            /*if (x <= borders[j].width + borders[j].x && y >= borders[j].y - height && y <= borders[j].height + borders[j].y && x >= borders[j].x - width) {
+                alert("I trigger");
+                if (!(x <= (borders[j].width + borders[j].x - Math.abs(xvel / timeScale)))) {
+                    alert("I am here xmax");
+                    x = (borders[j].width + borders[j].x - Math.abs(xvel / timeScale));
+                } else if (!(x >= (((borders[j].width + borders[j].x)) + Math.abs(xvel / timeScale)))) {
+                    x = ((borders[j].width + borders[j].x));
+                    alert("I am here xmin");
+                }
+                if (!(y <= (borders[j].height + borders[j].y - Math.abs(yvel / timeScale)))) {
+                    y = borders[j].height + borders[j].y
+                    alert("I am here ymax");
+                } else if (!(y >= (borders[j].y - height + Math.abs(yvel / timeScale)))) {
+                    y = borders[j].y - height;
+                    alert("I am here ymin");
+                }
+            }*/
         }
     }
+    
 }
 
 //Accounting for realism
