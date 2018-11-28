@@ -486,12 +486,17 @@ function collision() {
                 xmax = ((borders[i].width + borders[i].x + rad));
 
                 if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
+                    var firstBounce;
                     if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
                         xvel = -xvel;
-                    };
+                    } else { firstBounce = 1;};
                     if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
                         yvel = -yvel;
-                    } else { xvel = -xvel; yvel = -yvel;}//New test to avoid inserting the ball through corners.
+                    } else if (firstBounce == 1) {
+                        xvel = -xvel;
+                        yvel = -yvel;
+                    }//New test to avoid inserting the ball through corners.
+                    firstBounce = 0;
                 }
                 break;
             case ("barrierMov"):
@@ -501,16 +506,21 @@ function collision() {
                 xmax = ((borders[i].width + borders[i].x + rad) + 30 * Math.abs(borders[i].xvel / timeScale));
 
                 if (x <= xmax && y >= ymin && y <= ymax && x >= xmin) {
+                    var firstBounce;
                     if (!(x <= (xmax - Math.abs(xvel / timeScale)) && x >= (xmin + Math.abs(xvel / timeScale)))) {
-                        alert("I am calling this");
-                        xvel = -xvel + borders[i].xvel/2;
-                        yvel += borders[i].yvel / 2;
-                    };//There is a mistake somewhere here that causes the bounce from moving barriers to not always be correct in the y-direction. 
+                        //alert("I am calling this");
+                        xvel = -xvel + borders[i].xvel*1.1;
+                        yvel += borders[i].yvel * 1.1;
+                    } else { firstBounce = 1; };//There is a mistake somewhere here that causes the bounce from moving barriers to not always be correct in the y-direction. 
                     if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
-                        alert("I am calling that");
-                        xvel += borders[i].xvel / 2;
-                        yvel = -yvel + borders[i].yvel/2;
+                        //alert("I am calling that");
+                        xvel += borders[i].xvel * 1.1;
+                        yvel = -yvel + borders[i].yvel * 1.1;
+                    } else if (firstBounce == 1) {
+                        xvel = -xvel + borders[i].xvel * 1.1;
+                        yvel = -yvel + borders[i].yvel * 1.1;
                     }
+                    firstBounce = 0;
                 }
                 break;
             case ("circle"):
