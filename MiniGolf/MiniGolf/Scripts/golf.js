@@ -491,7 +491,7 @@ function collision() {
                     };
                     if (!(y <= (ymax - Math.abs(yvel / timeScale)) && y >= (ymin + Math.abs(yvel / timeScale)))) {
                         yvel = -yvel;
-                    }
+                    } else { xvel = -xvel; yvel = -yvel;}//New test to avoid inserting the ball through corners.
                 }
                 break;
             case ("barrierMov"):
